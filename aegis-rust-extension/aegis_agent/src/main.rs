@@ -1,5 +1,5 @@
 use axum::{
-    routing::post,
+    routing::{post, get},
     Router,
     Json,
     http::Method,
@@ -111,7 +111,12 @@ async fn anonymize_handler(Json(payload): Json<AegisRequest>) -> Json<AegisRespo
     })
 }
 
-// Handler B : Reçoit la nouvelle politique depuis le dashboard v0 (Next.js)
+// Handler B1 : Renvoie la politique actuelle au dashboard v0 (GET)
+async fn get_policy_handler() -> String {
+    fs::read_to_string("policy.txt").unwrap_or_default()
+}
+
+// Handler B2 : Reçoit la nouvelle politique depuis le dashboard v0 (Next.js)
 async fn update_policy_handler(Json(payload): Json<PolicyRequest>) -> Json<PolicyResponse> {
     println!("📝 [DASHBOARD] Nouvelle politique reçue !");
 
@@ -138,13 +143,13 @@ async fn main() {
     let cors = CorsLayer::new()
         .allow_origin(Any)
         // On autorise POST (pour envoyer les données) et OPTIONS (pour les vérifications de sécurité du navigateur)
-        .allow_methods([Method::POST, Method::OPTIONS])
+        .allow_methods([Method::GET, Method::POST, Method::OPTIONS])
         .allow_headers(Any);
 
     // Définition des routes de l'API
     let app = Router::new()
         .route("/api/anonymize", post(anonymize_handler))
-        .route("/api/policy", post(update_policy_handler))
+        .route("/api/policy", get(get_policy_handler).post(update_policy_handler))
         .layer(cors);
 
     // Lancement du serveur sur le port 3000

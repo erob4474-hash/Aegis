@@ -1,0 +1,30 @@
+{
+  "name": "aegis-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^16",
+    "react": "^19",
+    "react-dom": "^19",
+    "lucide-react": "^0.468",
+    "class-variance-authority": "^0.7",
+    "clsx": "^2.1",
+    "tailwind-merge": "^2.6",
+    "tailwindcss-animate": "^1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5",
+    "tailwindcss": "^3.4",
+    "postcss": "^8",
+    "autoprefixer": "^10"
+  }
+}
