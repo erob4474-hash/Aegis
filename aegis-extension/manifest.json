@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Aegis Shield - Universal",
+  "version": "1.0.0",
+  "description": "Bouclier DLP universel pour LLMs (aegis-llm-poc)",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-main.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
